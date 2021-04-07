@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>eureka-center</module>
+        <module>gateway-center</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
