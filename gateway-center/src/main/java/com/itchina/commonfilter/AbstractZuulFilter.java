@@ -1,4 +1,4 @@
-package com.itchina.filter;
+package com.itchina.commonfilter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -12,7 +12,7 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
     /**
      * RequestContext 用于在过滤器之间传递消息，数据保存在ThreadLocal中
      */
-    RequestContext requestContext;
+    public RequestContext requestContext;
 
 
     private final static String nextFilter = "next";
@@ -35,7 +35,7 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
 
     protected abstract Object cRun();
 
-    Object fail(int code,String msg){
+    public Object fail(int code,String msg){
         requestContext.set(nextFilter,false);
         requestContext.setSendZuulResponse(false);
         requestContext.getResponse().setContentType("text/html;charset=UTF-8");
@@ -43,7 +43,7 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
         requestContext.setResponseBody(String.format("{\"result\":\"%s!\"}",msg));
         return null;
     }
-    Object success(){
+    public Object success(){
         requestContext.set(nextFilter,true);
         return null;
     }

@@ -1,3 +1,5 @@
 /.idea/
 /eureka-center/
 /springboot-spark-cloud.iml
+/common-center/target/classes/com/itchina/common/
+/gateway-center/target/classes/
