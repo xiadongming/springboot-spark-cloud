@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebController {
     @RequestMapping(value = "dev",method = {RequestMethod.GET,RequestMethod.POST})
     public Object getTest(){
-
+        //   int a = 100 /0 ;
         return new CommonResopnse<Object>(00,"ok");
     }
 }
