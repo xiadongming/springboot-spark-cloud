@@ -19,7 +19,6 @@ import java.util.Date;
 public class CouponTemplate implements Serializable {
 
     /** 自增主键 */
-
     private Integer id;
 
     /** 是否是可用状态 */

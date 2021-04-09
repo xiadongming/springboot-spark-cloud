@@ -1,8 +1,10 @@
 package com.itchina.template.mapper;
 
+import com.itchina.common.vo.CouponTemplateSDK;
 import com.itchina.template.entity.CouponTemplate;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,5 +13,14 @@ import java.util.List;
  */
 @Mapper
 public interface CouponTemplateMapper {
-    List<CouponTemplate> selectAll();
+    List<CouponTemplateSDK> selectAll();
+
+    void saveTemplate(CouponTemplate template);
+
+
+    CouponTemplate selectTemplateById(Integer id);
+
+    List<CouponTemplate> selectOfflineTemplate();
+
+    void updateTemplate(CouponTemplate object);
 }
