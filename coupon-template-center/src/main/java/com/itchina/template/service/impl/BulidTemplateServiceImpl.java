@@ -51,7 +51,7 @@ public class BulidTemplateServiceImpl implements IBulidTemplateService {
 
         couponTemplate.setAvailable("0");
         couponTemplate.setCategory(templateRequest.getCategory());
-        couponTemplate.setCount(templateRequest.getCount());
+        couponTemplate.setCouponCount(templateRequest.getCount());
         couponTemplate.setCreateTime(new Date());
         couponTemplate.setDesc(templateRequest.getDesc());
         couponTemplate.setExpired("0");

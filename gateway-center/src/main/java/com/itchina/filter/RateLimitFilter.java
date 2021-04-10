@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2021/4/7 21:39
  * @Desc: 限流过滤器
  */
-@Component
+//@Component
 public class RateLimitFilter extends AbstractPreZuulFilter {
     /**
      * 限流过滤器
@@ -24,6 +24,7 @@ public class RateLimitFilter extends AbstractPreZuulFilter {
         /** 获取令牌成功 */
         if (rateLimiter.tryAcquire()) {
             System.out.println("获取令牌成功");
+            System.out.println("获取令牌失败，requestUrl="+request.getRequestURI());
             return success();
         }else{
             System.out.println("获取令牌失败，requestUrl="+request.getRequestURI());

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2021/4/7 21:48
  * @Desc:
  */
-@Component
+//@Component
 public class AccessLogZuulFilter extends AbstractPostZuulFilter {
     @Override
     protected Object cRun() {

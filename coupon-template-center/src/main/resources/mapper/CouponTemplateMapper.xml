@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itchina.template.mapper.CouponTemplateMapper">
+    <resultMap id="resultMap" type="com.itchina.template.entity.CouponTemplate">
+        <result column="id" property="id"/>
+        <result column="available" property="available"/>
+        <result column="expired" property="expired"/>
+        <result column="name" property="name"/>
+        <result column="logo" property="logo"/>
+       <!-- <result column="order_id" property="desc"/>-->
+        <result column="category" property="category"/>
+        <result column="product_line" property="productLine"/>
+        <result column="coupon_count" property="couponCount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="user_id" property="userId"/>
+        <result column="template_key" property="templateKey"/>
+        <result column="target" property="target"/>
+        <result column="rule" property="rule"/>
+    </resultMap>
 
     <select id="selectAll" resultType="com.itchina.common.vo.CouponTemplateSDK">
       select * from coupon_template
     </select>
-    <select id="selectTemplateById" resultType="com.itchina.template.entity.CouponTemplate">
+    <select id="selectTemplateById" resultMap="resultMap" >
       select * from coupon_template where id = #{id}
     </select>
     <select id="selectOfflineTemplate" resultType="com.itchina.template.entity.CouponTemplate">
       select * from coupon_template where expired = 0
     </select>
-    <update id="updateTemplate" parameterType="com.itchina.template.entity.CouponTemplate ">
+    <update id="updateTemplate" parameterType="com.itchina.template.entity.CouponTemplate">
      update coupon_template set expired = 1 where id = #{id}
     </update>
     <insert id="saveTemplate" parameterType="com.itchina.template.entity.CouponTemplate">

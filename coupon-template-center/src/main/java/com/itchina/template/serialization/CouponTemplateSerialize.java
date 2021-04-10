@@ -26,21 +26,15 @@ public class CouponTemplateSerialize extends JsonSerializer<CouponTemplate> {
         generator.writeStringField("id", template.getId().toString());
         generator.writeStringField("name", template.getName());
         generator.writeStringField("logo", template.getLogo());
-        generator.writeStringField("desc", template.getDesc());
-        generator.writeStringField("category",
-                template.getCategory());
-        generator.writeStringField("productLine",
-                template.getProductLine());
-        generator.writeStringField("count", template.getCount().toString());
-        generator.writeStringField("createTime",
-                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(template.getCreateTime()));
+        //generator.writeStringField("desc", template.getDesc());
+        generator.writeStringField("category",  template.getCategory());
+        generator.writeStringField("productLine",  template.getProductLine());
+        generator.writeStringField("count", template.getCouponCount().toString());
+        generator.writeStringField("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(template.getCreateTime()));
         generator.writeStringField("userId", template.getUserId().toString());
-        generator.writeStringField("key",
-                template.getKey() + String.format("%04d", template.getId()));
-        generator.writeStringField("target",
-                String.valueOf(template.getTarget()));
-        generator.writeStringField("rule",
-                JSON.toJSONString(template.getRule()));
+        generator.writeStringField("key", template.getTemplateKey() + String.format("%04d", template.getId()));
+        generator.writeStringField("target", String.valueOf(template.getTarget()));
+        generator.writeStringField("rule", JSON.toJSONString(template.getRule()));
 
         // 结束序列化对象
         generator.writeEndObject();

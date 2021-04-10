@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2021/4/7 21:46
  * @Desc:  在过滤器中存储客户端发起请求的时间戳
  */
-@Component
+//@Component
 public class PreRequestZuulFilter extends AbstractPreZuulFilter {
     @Override
     protected Object cRun() {

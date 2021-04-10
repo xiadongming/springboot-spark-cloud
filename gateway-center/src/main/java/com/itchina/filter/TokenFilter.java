@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2021/4/7 21:24
  * @Desc: token过滤器
  */
-@Component
+//@Component
 public class TokenFilter extends AbstractPreZuulFilter {
 
     @Override

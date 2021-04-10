@@ -66,17 +66,17 @@ public class AsyncServiceImpl implements IAsyncService {
      * */
     private Set<String> buildCouponCode(CouponTemplate template) {
         Stopwatch watch = Stopwatch.createStarted();
-        Set<String> result = new HashSet<>(template.getCount());
+        Set<String> result = new HashSet<>(template.getCouponCount());
         // 前四位
         String prefix4 = template.getProductLine() + template.getCategory();
         String date = new SimpleDateFormat("yyMMdd").format(template.getCreateTime());
-        for (int i = 0; i != template.getCount(); ++i) {
+        for (int i = 0; i != template.getCouponCount(); ++i) {
             result.add(prefix4 + buildCouponCodeSuffix14(date));
         }
-        while (result.size() < template.getCount()) {
+        while (result.size() < template.getCouponCount()) {
             result.add(prefix4 + buildCouponCodeSuffix14(date));
         }
-        assert result.size() == template.getCount();
+        assert result.size() == template.getCouponCount();
         watch.stop();
         System.out.println("Build Coupon Code Cost: {}ms"+ watch.elapsed(TimeUnit.MILLISECONDS));
         return result;

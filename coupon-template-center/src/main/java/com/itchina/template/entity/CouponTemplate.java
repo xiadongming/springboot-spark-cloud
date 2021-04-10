@@ -1,14 +1,8 @@
 package com.itchina.template.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.itchina.common.constant.CouponCategory;
-import com.itchina.common.constant.DistributeTarget;
-import com.itchina.common.constant.ProductLine;
-import com.itchina.common.vo.TemplateRule;
 import com.itchina.template.serialization.CouponTemplateSerialize;
-import org.springframework.data.annotation.CreatedDate;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -43,7 +37,7 @@ public class CouponTemplate implements Serializable {
     private String productLine;
 
     /** 总数 */
-    private Integer count;
+    private Integer couponCount;
 
     /** 创建时间 */
     private Date createTime;
@@ -52,7 +46,7 @@ public class CouponTemplate implements Serializable {
     private Long userId;
 
     /** 优惠券模板的编码 */
-    private String key;
+    private String templateKey;
 
     /** 目标用户 */
     private Integer target;
@@ -61,26 +55,6 @@ public class CouponTemplate implements Serializable {
     private String rule;
 
     public CouponTemplate() {
-    }
-
-    /**
-     * <h2>自定义构造函数</h2>
-     * */
-    public CouponTemplate(String available,String expired ,String name, String logo, String desc, String category,
-                          Integer productLine, Integer count, Long userId,
-                          Integer target, String rule) {
-
-        this.available = available;
-        this.expired = expired;
-        this.name = name;
-        this.logo = logo;
-        this.desc = desc;
-        this.count = count;
-        this.userId = userId;
-        // 优惠券模板唯一编码 = 4(产品线和类型) + 8(日期: 20190101) + id(扩充为4位)
-        this.key = productLine.toString() + category +
-                new SimpleDateFormat("yyyyMMdd").format(new Date());
-        this.rule = rule;
     }
 
     public Integer getId() {
@@ -147,12 +121,12 @@ public class CouponTemplate implements Serializable {
         this.productLine = productLine;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getCouponCount() {
+        return couponCount;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setCouponCount(Integer couponCount) {
+        this.couponCount = couponCount;
     }
 
     public Date getCreateTime() {
@@ -171,12 +145,12 @@ public class CouponTemplate implements Serializable {
         this.userId = userId;
     }
 
-    public String getKey() {
-        return key;
+    public String getTemplateKey() {
+        return templateKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setTemplateKey(String templateKey) {
+        this.templateKey = templateKey;
     }
 
     public Integer getTarget() {
@@ -204,14 +178,14 @@ public class CouponTemplate implements Serializable {
                 ", name='" + name + '\'' +
                 ", logo='" + logo + '\'' +
                 ", desc='" + desc + '\'' +
-                ", category=" + category +
-                ", productLine=" + productLine +
-                ", count=" + count +
+                ", category='" + category + '\'' +
+                ", productLine='" + productLine + '\'' +
+                ", couponCount=" + couponCount +
                 ", createTime=" + createTime +
                 ", userId=" + userId +
-                ", key='" + key + '\'' +
+                ", templateKey='" + templateKey + '\'' +
                 ", target=" + target +
-                ", rule=" + rule +
+                ", rule='" + rule + '\'' +
                 '}';
     }
 }

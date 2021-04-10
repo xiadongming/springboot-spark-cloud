@@ -4,7 +4,6 @@ import com.itchina.common.vo.CouponTemplateSDK;
 import com.itchina.template.entity.CouponTemplate;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
