@@ -39,7 +39,7 @@ public class ExecuteManager implements BeanPostProcessor {
         SettlementInfo result = null;
 
         // 单类优惠券
-        if (settlement.getCouponAndTemplateInfos().size() == 1) {
+     /*   if (settlement.getCouponAndTemplateInfos().size() == 1) {
             // 获取优惠券的类别
             CouponCategory category = CouponCategory.of(settlement.getCouponAndTemplateInfos().get(0).getTemplate().getCategory());
             switch (category) {
@@ -70,7 +70,7 @@ public class ExecuteManager implements BeanPostProcessor {
                     throw new CouponException("Not Support For Other " + "Template Category");
                 }
             }
-        }
+        }*/
         return result;
     }
 
