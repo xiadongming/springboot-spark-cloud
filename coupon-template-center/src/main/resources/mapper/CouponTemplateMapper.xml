@@ -8,21 +8,26 @@
         <result column="name" property="name"/>
         <result column="logo" property="logo"/>
        <!-- <result column="order_id" property="desc"/>-->
-        <result column="category" property="category"/>
-        <result column="product_line" property="productLine"/>
+        <result column="category" property="categoryCode"/>
+        <result column="product_line" property="productLineCode"/>
         <result column="coupon_count" property="couponCount"/>
         <result column="create_time" property="createTime"/>
         <result column="user_id" property="userId"/>
         <result column="template_key" property="templateKey"/>
-        <result column="target" property="target"/>
-        <result column="rule" property="rule"/>
+        <result column="target" property="targetCode"/>
+        <result column="rule" property="ruleCode"  />
     </resultMap>
 
-    <select id="selectAll" resultType="com.itchina.common.vo.CouponTemplateSDK">
+    <select id="selectAll" resultType="com.itchina.template.entity.CouponTemplate">
       select * from coupon_template
     </select>
     <select id="selectTemplateById" resultMap="resultMap" >
       select * from coupon_template where id = #{id}
+    </select>
+
+
+    <select id="findByName" resultMap="resultMap" >
+      select * from coupon_template where name = #{name}
     </select>
     <select id="selectOfflineTemplate" resultType="com.itchina.template.entity.CouponTemplate">
       select * from coupon_template where expired = 0

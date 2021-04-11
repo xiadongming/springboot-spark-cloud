@@ -51,8 +51,8 @@ public class UserServiceImpl implements IUserService {
     private TemplateClient templateClient;
 
     /** 结算微服务客户端 */
-    @Autowired
-    private SettlementClient settlementClient;
+   // @Autowired
+    //private SettlementClient settlementClient;
 
     /** Kafka 客户端 */
     @Autowired
@@ -130,14 +130,14 @@ public class UserServiceImpl implements IUserService {
         logger.debug("Find All Template(From TemplateClient) Count: {}", templateSDKS.size());
 
         // 过滤过期的优惠券模板
-        templateSDKS = templateSDKS.stream().filter(t -> t.getRule().getExpiration().getDeadline() > curTime ).collect(Collectors.toList());
+    //    templateSDKS = templateSDKS.stream().filter(t -> t.getRule().getExpiration().getDeadline() > curTime ).collect(Collectors.toList());
 
         logger.info("Find Usable Template Count: {}", templateSDKS.size());
 
         // key 是 TemplateId
         // value 中的 left 是 Template limitation, right 是优惠券模板
         Map<Integer, Pair<Integer, CouponTemplateSDK>> limit2Template = new HashMap<>(templateSDKS.size());
-        templateSDKS.forEach( t -> limit2Template.put( t.getId(), Pair.of(t.getRule().getLimitation(), t) )        );
+   //     templateSDKS.forEach( t -> limit2Template.put( t.getId(), Pair.of(t.getRule().getLimitation(), t) )        );
 
         List<CouponTemplateSDK> result = new ArrayList<>(limit2Template.size());
         List<Coupon> userUsableCoupons = findCouponsByStatus(userId, CouponStatus.USABLE.getCode());
@@ -185,7 +185,7 @@ public class UserServiceImpl implements IUserService {
         List<Coupon> userUsableCoupons = findCouponsByStatus(request.getUserId(), CouponStatus.USABLE.getCode() );
         Map<Integer, List<Coupon>> templateId2Coupons = userUsableCoupons.stream().collect(Collectors.groupingBy(Coupon::getTemplateId));
 
-        if (templateId2Coupons.containsKey(request.getTemplateSDK().getId())&& templateId2Coupons.get(request.getTemplateSDK().getId()).size() >= request.getTemplateSDK().getRule().getLimitation()) {
+        if (templateId2Coupons.containsKey(request.getTemplateSDK().getId())) {
             logger.error("Exceed Template Assign Limitation: {}",request.getTemplateSDK().getId());
             throw new Exception("Exceed Template Assign Limitation");
         }

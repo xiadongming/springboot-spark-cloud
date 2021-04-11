@@ -1,35 +1,39 @@
 package com.itchina.common.constant;
 
+
 import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
- * @Date: 2021/4/8 21:24
- * @Desc: 分发目标
+ * <h1>分发目标</h1>
  */
-public enum DistributeTarget {
+public enum DistributeTarget implements CodeBaseEnum{
 
     SINGLE("单用户", 1),
     MULTI("多用户", 2);
-    /**
-     * 分发目标描述
-     */
-    private String description;
-    /**
-     * 分发目标编码
-     */
-    private Integer code;
 
+    /** 分发目标描述 */
+    private String description;
+
+    /** 分发目标编码 */
+    private Integer code;
+    @Override
+    public Integer code() {
+        return code;
+    }
     DistributeTarget(String description, Integer code) {
         this.description = description;
         this.code = code;
     }
 
     public static DistributeTarget of(Integer code) {
+
         Objects.requireNonNull(code);
-        Stream<DistributeTarget> values = Stream.of(values());
-        DistributeTarget distributeTarget = values.filter(bean -> bean.code.equals(code)).findAny().orElseThrow(() -> new IllegalArgumentException(code + " >> 不存在"));
-        return distributeTarget;
+
+        return Stream.of(values())
+                .filter(bean -> bean.code.equals(code))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(code + " >>>>不存在"));
     }
 
     public String getDescription() {
@@ -47,4 +51,6 @@ public enum DistributeTarget {
     public void setCode(Integer code) {
         this.code = code;
     }
+
+
 }

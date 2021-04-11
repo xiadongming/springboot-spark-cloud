@@ -1,7 +1,7 @@
 package com.itchina.common.advice;
 
 import com.itchina.common.annotation.IgnoreResponseAdvice;
-import com.itchina.common.vo.CommonResopnse;
+import com.itchina.common.vo.CommonResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @Date: 2021/4/7 22:25
- * @Desc: adview增强
+ * @Desc: adview增强,,拦截controller中的返回值
  * RestControllerAdvice 是对restController的增强
  */
 @RestControllerAdvice
@@ -50,12 +50,12 @@ public class CommonResponseDataAdvice implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
 
 
-        CommonResopnse<Object> resopnse = new CommonResopnse(0, "");
+        CommonResponse<Object> resopnse = new CommonResponse(0, "");
         // 如果是void，则不需要设置resopnse的data
         if (null == o) {
             return resopnse;
-        } else if (o instanceof CommonResopnse) {
-            resopnse = (CommonResopnse<Object>) o;
+        } else if (o instanceof CommonResponse) {
+            resopnse = (CommonResponse<Object>) o;
             /**
              * 如果不属于，则作为data返回
              * */

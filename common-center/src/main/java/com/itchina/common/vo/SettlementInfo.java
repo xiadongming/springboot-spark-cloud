@@ -1,5 +1,6 @@
 package com.itchina.common.vo;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class SettlementInfo {
 
     Long userId;
     /** 商品信息 */
-    List<GoodsInfo> goodsInfoList;
+    List<GoodsInfo> goodsInfos;
     /** 优惠卷列表 */
     List<CouponTemplateSDK> couponTemplateSDKList;
     /** 结果结算金额 */
@@ -27,12 +28,12 @@ public class SettlementInfo {
         this.userId = userId;
     }
 
-    public List<GoodsInfo> getGoodsInfoList() {
-        return goodsInfoList;
+    public List<GoodsInfo> getGoodsInfos() {
+        return goodsInfos;
     }
 
-    public void setGoodsInfoList(List<GoodsInfo> goodsInfoList) {
-        this.goodsInfoList = goodsInfoList;
+    public void setGoodsInfos(List<GoodsInfo> goodsInfos) {
+        this.goodsInfos = goodsInfos;
     }
 
     public List<CouponTemplateSDK> getCouponTemplateSDKList() {
@@ -49,5 +50,24 @@ public class SettlementInfo {
 
     public void setCost(Double cost) {
         this.cost = cost;
+    }
+
+    public Boolean getEmploy() {
+        return employ;
+    }
+
+    public void setEmploy(Boolean employ) {
+        this.employ = employ;
+    }
+
+    @Override
+    public String toString() {
+        return "SettlementInfo{" +
+                "userId=" + userId +
+                ", goodsInfos=" + goodsInfos +
+                ", couponTemplateSDKList=" + couponTemplateSDKList +
+                ", cost=" + cost +
+                ", employ=" + employ +
+                '}';
     }
 }

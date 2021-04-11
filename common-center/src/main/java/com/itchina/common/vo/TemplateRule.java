@@ -1,12 +1,13 @@
 package com.itchina.common.vo;
 
+import com.itchina.common.constant.CodeBaseEnum;
 import com.itchina.common.constant.PeriodType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * <h1>优惠券规则对象定义</h1>
+ * Created by Qinyi.
  */
-
 public class TemplateRule {
 
     /** 优惠券过期规则 */
@@ -28,16 +29,13 @@ public class TemplateRule {
      * <h2>校验功能</h2>
      * */
     public boolean validate() {
-
-        return expiration.validate() && discount.validate()
-                && limitation > 0 && usage.validate()
-                && StringUtils.isNotEmpty(weight);
+        return expiration.validate() && discount.validate() && limitation > 0 && usage.validate() && StringUtils.isNotEmpty(weight);
     }
+
 
     /**
      * <h2>有效期限规则</h2>
      * */
-
     public static class Expiration {
 
         /** 有效期规则, 对应 PeriodType 的 code 字段 */
@@ -82,7 +80,6 @@ public class TemplateRule {
     /**
      * <h2>折扣, 需要与类型配合决定</h2>
      * */
-
     public static class Discount {
 
         /** 额度: 满减(20), 折扣(85), 立减(10) */
@@ -116,7 +113,6 @@ public class TemplateRule {
     /**
      * <h2>使用范围</h2>
      * */
-
     public static class Usage {
 
         /** 省份 */

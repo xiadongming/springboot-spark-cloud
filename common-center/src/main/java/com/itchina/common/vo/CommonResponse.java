@@ -1,27 +1,32 @@
 package com.itchina.common.vo;
 
+
 import java.io.Serializable;
 
 /**
- * @Date: 2021/4/7 22:18
- * @Desc:
+ * <h1>通用响应对象定义</h1>
  */
-public class CommonResopnse<T> implements Serializable {
-    private int code;
+public class CommonResponse<T> implements Serializable {
+
+    private Integer code;
     private String message;
     private T data;
-    public CommonResopnse(int code, String message) {
+
+    public CommonResponse(Integer code, String message) {
+
         this.code = code;
         this.message = message;
     }
-    public static CommonResopnse ofMessage(int code, String message) {
-        return new CommonResopnse(code, message);
+
+    public static CommonResponse ofMessage(Integer code, String message) {
+        return new CommonResponse(code, message);
     }
-    public int getCode() {
+
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -43,7 +48,7 @@ public class CommonResopnse<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "CommonResopnse{" +
+        return "CommonResponse{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
                 ", data=" + data +

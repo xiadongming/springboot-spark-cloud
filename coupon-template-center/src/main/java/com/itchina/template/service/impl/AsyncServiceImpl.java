@@ -4,8 +4,11 @@ import com.google.common.base.Stopwatch;
 import com.itchina.common.constant.Constant;
 import com.itchina.template.entity.CouponTemplate;
 import com.itchina.template.mapper.CouponTemplateMapper;
+import com.itchina.template.schedule.ScheduledTask;
 import com.itchina.template.service.IAsyncService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Async;
@@ -21,38 +24,48 @@ import java.util.stream.Collectors;
 
 /**
  * <h1>异步服务接口实现</h1>
+ * Created by Qinyi.
  */
 @Service
 public class AsyncServiceImpl implements IAsyncService {
+    final Logger logger = LoggerFactory.getLogger(AsyncServiceImpl.class);
 
+    /** CouponTemplate Dao */
     @Autowired
-    private CouponTemplateMapper couponTemplateMapper;
+    private  CouponTemplateMapper couponTemplateMapper;
+
+    /** 注入 Redis 模板类 */
     @Autowired
     private  StringRedisTemplate redisTemplate;
+
     /**
      * <h2>根据模板异步的创建优惠券码</h2>
      * @param template {@link CouponTemplate} 优惠券模板实体
      */
     @Async("getAsyncExecutor")
     @Override
-    public void asyncContructCouponByTemplate(CouponTemplate template) {
+    public void asyncConstructCouponByTemplate(CouponTemplate template) {
 
         Stopwatch watch = Stopwatch.createStarted();
-        /**
-         * 生成优惠卷码
-         * */
+
         Set<String> couponCodes = buildCouponCode(template);
 
         // imooc_coupon_template_code_1
         String redisKey = String.format("%s%s", Constant.RedisPrefix.COUPON_TEMPLATE, template.getId().toString());
-        System.out.println("优惠卷码写入redis: {}"+  redisTemplate.opsForList().rightPushAll(redisKey, couponCodes));
-        template.setAvailable("0");
+        /**
+         * 将优惠卷码存放到缓存中
+         * */
+        Long aLong = redisTemplate.opsForList().rightPushAll(redisKey, couponCodes);
+        logger.info("Push CouponCode To Redis: {}", aLong);
+
+        template.setAvailable(true);
         couponTemplateMapper.saveTemplate(template);
 
         watch.stop();
-        System.out.println("Construct CouponCode By Template Cost: {}ms"+ watch.elapsed(TimeUnit.MILLISECONDS));
+        logger.info("Construct CouponCode By Template Cost: {}ms", watch.elapsed(TimeUnit.MILLISECONDS));
+
         // TODO 发送短信或者邮件通知优惠券模板已经可用
-        System.out.println("CouponTemplate({}) Is Available!"+ template.getId());
+        logger.info("CouponTemplate({}) Is Available!", template.getId());
     }
 
     /**
@@ -64,21 +77,31 @@ public class AsyncServiceImpl implements IAsyncService {
      * @param template {@link CouponTemplate} 实体类
      * @return Set<String> 与 template.count 相同个数的优惠券码
      * */
+    @SuppressWarnings("all")
     private Set<String> buildCouponCode(CouponTemplate template) {
+
         Stopwatch watch = Stopwatch.createStarted();
-        Set<String> result = new HashSet<>(template.getCouponCount());
+
+        Set<String> result = new HashSet<>(template.getCount());
+
         // 前四位
-        String prefix4 = template.getProductLine() + template.getCategory();
+        String prefix4 = template.getProductLineCode().toString() + template.getCategoryCode();
         String date = new SimpleDateFormat("yyMMdd").format(template.getCreateTime());
-        for (int i = 0; i != template.getCouponCount(); ++i) {
+
+        for (int i = 0; i != template.getCount(); ++i) {
             result.add(prefix4 + buildCouponCodeSuffix14(date));
         }
-        while (result.size() < template.getCouponCount()) {
+
+        while (result.size() < template.getCount()) {
             result.add(prefix4 + buildCouponCodeSuffix14(date));
         }
-        assert result.size() == template.getCouponCount();
+
+        assert result.size() == template.getCount();
+
         watch.stop();
-        System.out.println("Build Coupon Code Cost: {}ms"+ watch.elapsed(TimeUnit.MILLISECONDS));
+        logger.info("Build Coupon Code Cost: {}ms",
+                watch.elapsed(TimeUnit.MILLISECONDS));
+
         return result;
     }
 
@@ -88,13 +111,20 @@ public class AsyncServiceImpl implements IAsyncService {
      * @return 14 位优惠券码
      * */
     private String buildCouponCodeSuffix14(String date) {
+
         char[] bases = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
         // 中间六位
-        List<Character> chars = date.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
+        List<Character> chars = date.chars()
+                .mapToObj(e -> (char) e).collect(Collectors.toList());
         Collections.shuffle(chars);
-        String mid6 = chars.stream().map(Object::toString).collect(Collectors.joining());
+        String mid6 = chars.stream()
+                .map(Object::toString).collect(Collectors.joining());
+
         // 后八位
-        String suffix8 = RandomStringUtils.random(1, bases) + RandomStringUtils.randomNumeric(7);
+        String suffix8 = RandomStringUtils.random(1, bases)
+                + RandomStringUtils.randomNumeric(7);
+
         return mid6 + suffix8;
     }
 }

@@ -1,39 +1,40 @@
 package com.itchina.common.constant;
 
+
 import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
- * @Date: 2021/4/8 21:19
- * @Desc: 产品线枚举
- * 每一个优惠卷都属于一个产品线
+ * <h1>产品线枚举</h1>
  */
-public enum ProductLine {
+public enum ProductLine implements CodeBaseEnum{
 
     DAMAO("大猫", 1),
     DABAO("大宝", 2);
 
-    /**
-     * 描述
-     */
+    /** 产品线描述 */
     private String description;
-    /**
-     * 产品线编码
-     */
-    private Integer code;
 
+    /** 产品线编码 */
+    private Integer code;
+    @Override
+    public Integer code() {
+        return code;
+    }
     ProductLine(String description, Integer code) {
         this.description = description;
         this.code = code;
     }
-    public static ProductLine of(Integer code) {
-        Objects.requireNonNull(code);
-        Stream<ProductLine> values = Stream.of(values());
-        //ProductLine productLine = values.filter(bean -> bean.code.equals(code)).findAny().orElseThrow(() -> new IllegalArgumentException(code + " >> 不存在"));
-        ProductLine productLine = values.filter(bean -> bean.code.equals(code)).findAny().orElse(ProductLine.DABAO);
-        return productLine;
-    }
 
+    public static ProductLine of(Integer code) {
+
+        Objects.requireNonNull(code);
+
+        return Stream.of(values())
+                .filter(bean -> bean.code.equals(code))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(code + " not exists!"));
+    }
 
     public String getDescription() {
         return description;
@@ -50,4 +51,6 @@ public enum ProductLine {
     public void setCode(Integer code) {
         this.code = code;
     }
+
+
 }

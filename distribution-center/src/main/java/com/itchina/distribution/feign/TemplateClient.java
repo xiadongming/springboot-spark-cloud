@@ -1,6 +1,5 @@
 package com.itchina.distribution.feign;
 
-import com.itchina.common.vo.CommonResopnse;
 import com.itchina.common.vo.CouponTemplateSDK;
 import com.itchina.distribution.feign.hystrix.TemplateClientHystrix;
 import org.apache.ibatis.annotations.Param;

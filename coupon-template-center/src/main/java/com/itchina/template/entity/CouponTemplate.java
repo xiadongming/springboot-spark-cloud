@@ -1,13 +1,21 @@
 package com.itchina.template.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.itchina.template.converter.CouponCategoryConverter;
+import com.itchina.template.converter.DistributeTargetConverter;
+import com.itchina.template.converter.ProductLineConverter;
+import com.itchina.template.converter.RuleConverter;
 import com.itchina.template.serialization.CouponTemplateSerialize;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * <h1>优惠券模板实体类定义: 基础属性 + 规则属性</h1>
- *  指定自定义序列化器
  */
 @JsonSerialize(using = CouponTemplateSerialize.class)
 public class CouponTemplate implements Serializable {
@@ -16,10 +24,10 @@ public class CouponTemplate implements Serializable {
     private Integer id;
 
     /** 是否是可用状态 */
-    private String available;
+    private Boolean available;
 
     /** 是否过期 */
-    private String expired;
+    private Boolean expired;
 
     /** 优惠券名称 */
     private String name;
@@ -31,13 +39,17 @@ public class CouponTemplate implements Serializable {
     private String desc;
 
     /** 优惠券分类 */
-    private String category;
+    @Column(name = "category", nullable = false)
+    @Convert(converter = CouponCategoryConverter.class)
+    private String categoryCode;
 
     /** 产品线 */
-    private String productLine;
+    @Column(name = "product_line", nullable = false)
+    @Convert(converter = ProductLineConverter.class)
+    private String productLineCode;
 
     /** 总数 */
-    private Integer couponCount;
+    private Integer count;
 
     /** 创建时间 */
     private Date createTime;
@@ -46,15 +58,39 @@ public class CouponTemplate implements Serializable {
     private Long userId;
 
     /** 优惠券模板的编码 */
-    private String templateKey;
+    private String key;
 
     /** 目标用户 */
-    private Integer target;
+    @Column(name = "target", nullable = false)
+    @Convert(converter = DistributeTargetConverter.class)
+    private String targetCode;
 
     /** 优惠券规则 */
-    private String rule;
+    @Column(name = "rule", nullable = false)
+    @Convert(converter = RuleConverter.class)
+    private String ruleCode;
 
-    public CouponTemplate() {
+    /**
+     * <h2>自定义构造函数</h2>
+     * */
+    public CouponTemplate(String name, String logo, String desc, String category,
+                          String productLine, Integer count, Long userId,
+                          String target, String rule) {
+
+        this.available = false;
+        this.expired = false;
+        this.name = name;
+        this.logo = logo;
+        this.desc = desc;
+        this.categoryCode = category;
+        this.productLineCode = productLine;
+        this.count = count;
+        this.userId = userId;
+        // 优惠券模板唯一编码 = 4(产品线和类型) + 8(日期: 20190101) + id(扩充为4位)
+        this.key = productLine.toString() + category +
+                new SimpleDateFormat("yyyyMMdd").format(new Date());
+        this.targetCode = target;
+        this.ruleCode = rule;
     }
 
     public Integer getId() {
@@ -65,19 +101,19 @@ public class CouponTemplate implements Serializable {
         this.id = id;
     }
 
-    public String getAvailable() {
+    public Boolean getAvailable() {
         return available;
     }
 
-    public void setAvailable(String available) {
+    public void setAvailable(Boolean available) {
         this.available = available;
     }
 
-    public String getExpired() {
+    public Boolean getExpired() {
         return expired;
     }
 
-    public void setExpired(String expired) {
+    public void setExpired(Boolean expired) {
         this.expired = expired;
     }
 
@@ -105,28 +141,28 @@ public class CouponTemplate implements Serializable {
         this.desc = desc;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
-    public String getProductLine() {
-        return productLine;
+    public String getProductLineCode() {
+        return productLineCode;
     }
 
-    public void setProductLine(String productLine) {
-        this.productLine = productLine;
+    public void setProductLineCode(String productLineCode) {
+        this.productLineCode = productLineCode;
     }
 
-    public Integer getCouponCount() {
-        return couponCount;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setCouponCount(Integer couponCount) {
-        this.couponCount = couponCount;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Date getCreateTime() {
@@ -145,47 +181,27 @@ public class CouponTemplate implements Serializable {
         this.userId = userId;
     }
 
-    public String getTemplateKey() {
-        return templateKey;
+    public String getKey() {
+        return key;
     }
 
-    public void setTemplateKey(String templateKey) {
-        this.templateKey = templateKey;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public Integer getTarget() {
-        return target;
+    public String getTargetCode() {
+        return targetCode;
     }
 
-    public void setTarget(Integer target) {
-        this.target = target;
+    public void setTargetCode(String targetCode) {
+        this.targetCode = targetCode;
     }
 
-    public String getRule() {
-        return rule;
+    public String getRuleCode() {
+        return ruleCode;
     }
 
-    public void setRule(String rule) {
-        this.rule = rule;
-    }
-
-    @Override
-    public String toString() {
-        return "CouponTemplate{" +
-                "id=" + id +
-                ", available='" + available + '\'' +
-                ", expired='" + expired + '\'' +
-                ", name='" + name + '\'' +
-                ", logo='" + logo + '\'' +
-                ", desc='" + desc + '\'' +
-                ", category='" + category + '\'' +
-                ", productLine='" + productLine + '\'' +
-                ", couponCount=" + couponCount +
-                ", createTime=" + createTime +
-                ", userId=" + userId +
-                ", templateKey='" + templateKey + '\'' +
-                ", target=" + target +
-                ", rule='" + rule + '\'' +
-                '}';
+    public void setRuleCode(String ruleCode) {
+        this.ruleCode = ruleCode;
     }
 }

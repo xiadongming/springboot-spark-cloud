@@ -1,11 +1,12 @@
 package com.itchina.template.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.itchina.common.exception.CouponException;
 import com.itchina.common.vo.CouponTemplateSDK;
 import com.itchina.common.vo.TemplateRequest;
 import com.itchina.template.entity.CouponTemplate;
-import com.itchina.template.service.IBulidTemplateService;
-import com.itchina.template.service.ITemplateCRUDBaseService;
+import com.itchina.template.service.IBuildTemplateService;
+import com.itchina.template.service.ITemplateBaseService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,16 +25,16 @@ import java.util.Map;
 @RestController
 public class TemplateController {
     @Autowired
-    IBulidTemplateService bulidTemplateService;
+    IBuildTemplateService bulidTemplateService;
     @Autowired
-    ITemplateCRUDBaseService templateCRUDBaseService;
+    ITemplateBaseService templateCRUDBaseService;
     /**
      * 构建优惠卷模板
      * 请求路径 localhost:10000/coupan-template/template/build
      * 网关请求 localhost:9000/my/coupan-template/template/build
      */
     @RequestMapping(value = "/template/build", method = {RequestMethod.GET, RequestMethod.POST})
-    public CouponTemplate buildTemplate(@RequestBody TemplateRequest request) {
+    public CouponTemplate buildTemplate(@RequestBody TemplateRequest request) throws CouponException {
         System.out.println("构建优惠卷模板 入参= " + JSON.toJSONString(request));
 
         CouponTemplate couponTemplate = bulidTemplateService.buildTemplate(request);
@@ -46,9 +47,9 @@ public class TemplateController {
      * 网关请求 localhost:9000/my/coupan-template/template/info
      * */
     @RequestMapping(value = "/template/info", method = {RequestMethod.GET, RequestMethod.POST})
-    public CouponTemplate buildTemplateInfo(@Param("id") Integer id) {
+    public CouponTemplate buildTemplateInfo(@Param("id") Integer id) throws CouponException {
         System.out.println("查询优惠卷模板 入参= " + id);
-        CouponTemplate couponTemplate1 = templateCRUDBaseService.buildTemplate(id);
+        CouponTemplate couponTemplate1 = templateCRUDBaseService.buildTemplateInfo(id);
 
         System.out.println("结果：couponTemplate1= " + couponTemplate1);
 
@@ -63,7 +64,7 @@ public class TemplateController {
     public List<CouponTemplateSDK>  finaAllUsableTemplcate() {
         System.out.println("查询所有可用优惠卷模板 入参= ");
         int a = 100 / 0;
-        List<CouponTemplateSDK> couponTemplateSDKS = templateCRUDBaseService.selectAllUsableTemplate();
+        List<CouponTemplateSDK> couponTemplateSDKS = templateCRUDBaseService.findAllUsableTemplate();
         return couponTemplateSDKS;
     }
     /**

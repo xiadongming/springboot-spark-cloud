@@ -1,15 +1,16 @@
 package com.itchina.template.service;
 
+
 import com.itchina.template.entity.CouponTemplate;
 
 /**
- * @Date: 2021/4/9 7:50
- * @Desc: 异步服务接口，
- *
+ * <h1>异步服务接口定义</h1>
  */
 public interface IAsyncService {
+
     /**
-     * 根据模板，异步创建优惠卷码
+     * <h2>根据模板异步的创建优惠券码</h2>
+     * @param template {@link CouponTemplate} 优惠券模板实体
      * */
-    void asyncContructCouponByTemplate(CouponTemplate couponTemplate);
+    void asyncConstructCouponByTemplate(CouponTemplate template);
 }

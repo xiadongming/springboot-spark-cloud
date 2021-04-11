@@ -1,23 +1,49 @@
 package com.itchina.common.vo;
 
+
 /**
- * @Date: 2021/4/9 8:04
- * @Desc: 用于微服务之间优惠卷模板的信息定义
+ * <h1>微服务之间用的优惠券模板信息定义</h1>
  */
 public class CouponTemplateSDK {
+
+    /** 优惠券模板主键 */
     private Integer id;
 
-    private String name ;
+    /** 优惠券模板名称 */
+    private String name;
+
+    /** 优惠券 logo */
     private String logo;
-    private String desc ;
+
+    /** 优惠券描述 */
+    private String desc;
+
+    /** 优惠券分类 */
     private String category;
+
+    /** 产品线 */
     private Integer productLine;
-    /** 优惠卷模板编码 */
+
+    /** 优惠券模板的编码 */
     private String key;
 
-    private Integer target;//目标用户
+    /** 目标用户 */
+    private Integer target;
 
-    private TemplateRule rule;//优惠卷规则
+    /** 优惠券规则 */
+    private String rule;
+
+    public CouponTemplateSDK(Integer id, String name, String logo, String desc, String category, Integer productLine, String key, Integer target, String rule) {
+        this.id = id;
+        this.name = name;
+        this.logo=logo;
+        this.desc=desc;
+        this.category=category;
+        this.productLine=productLine;
+        this.key=key;
+        this.target=target;
+        this.rule=rule;
+    }
 
     public Integer getId() {
         return id;
@@ -83,11 +109,11 @@ public class CouponTemplateSDK {
         this.target = target;
     }
 
-    public TemplateRule getRule() {
+    public String getRule() {
         return rule;
     }
 
-    public void setRule(TemplateRule rule) {
+    public void setRule(String rule) {
         this.rule = rule;
     }
 

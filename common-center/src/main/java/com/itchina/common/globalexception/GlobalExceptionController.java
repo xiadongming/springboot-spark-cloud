@@ -1,13 +1,12 @@
 package com.itchina.common.globalexception;
 
-import com.itchina.common.vo.CommonResopnse;
+import com.itchina.common.vo.CommonResponse;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +27,11 @@ public class GlobalExceptionController implements ErrorController {
     @RequestMapping(value = ERROR_PATH)
     @ResponseBody
     @ExceptionHandler(value = {Exception.class})
-    public CommonResopnse errorApiHandler(HttpServletRequest request, final Exception ex, final WebRequest req) {
+    public CommonResponse errorApiHandler(HttpServletRequest request, final Exception ex, final WebRequest req) {
         //ServletRequestAttributes requestAttributes = new ServletRequestAttributes(request);
         Map<String, Object> attrMap = this.errorAttributes.getErrorAttributes(req, false);
         int status = getStatus(request);
-        return CommonResopnse.ofMessage(status, String.valueOf(attrMap.getOrDefault("message", "error")));
+        return CommonResponse.ofMessage(status, String.valueOf(attrMap.getOrDefault("message", "error")));
     }
     private int getStatus(HttpServletRequest request) {
         Integer status = (Integer) request.getAttribute("javax.servlet.error.status_code");

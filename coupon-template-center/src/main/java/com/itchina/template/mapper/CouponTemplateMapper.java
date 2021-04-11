@@ -12,9 +12,9 @@ import java.util.List;
  */
 @Mapper
 public interface CouponTemplateMapper {
-    List<CouponTemplateSDK> selectAll();
+    List<CouponTemplate> selectAll();
 
-    void saveTemplate(CouponTemplate template);
+    CouponTemplate saveTemplate(CouponTemplate template);
 
 
     CouponTemplate selectTemplateById(Integer id);
@@ -22,4 +22,6 @@ public interface CouponTemplateMapper {
     List<CouponTemplate> selectOfflineTemplate();
 
     void updateTemplate(CouponTemplate object);
+
+    CouponTemplate findByName(String name);
 }
