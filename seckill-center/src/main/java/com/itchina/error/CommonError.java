@@ -1,6 +1,7 @@
 package com.itchina.error;
 
 /**
+ * Created by hzllb on 2018/11/13.
  */
 public interface CommonError {
     public int getErrCode();

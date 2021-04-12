@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 
 /**
- * Created by hzllb on 2018/11/18.
  */
 public class PromoModel {
     private Integer id;

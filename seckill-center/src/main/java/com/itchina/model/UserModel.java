@@ -3,7 +3,6 @@ package com.itchina.model;
 import javax.validation.constraints.*;
 
 /**
- * Created by hzllb on 2018/11/11.
  */
 public class UserModel {
     private Integer id;

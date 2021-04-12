@@ -5,11 +5,14 @@ import com.itchina.error.BusinessException;
 import com.itchina.model.UserModel;
 
 /**
- * Created by hzllb on 2018/11/11.
  */
 public interface UserService {
     //通过用户ID获取用户对象的方法
     UserModel getUserById(Integer id);
+
+    //通过缓存获取用户对象
+    UserModel getUserByIdInCache(Integer id);
+
     void register(UserModel userModel) throws BusinessException;
 
     /*

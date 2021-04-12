@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * Created by hzllb on 2018/11/18.
  */
 @Controller("/item")
 @RequestMapping("/item")

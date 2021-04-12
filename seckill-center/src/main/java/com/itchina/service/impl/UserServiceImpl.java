@@ -14,12 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.TimeUnit;
+
 /**
- * Created by hzllb on 2018/11/11.
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,6 +35,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ValidatorImpl validator;
 
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public UserModel getUserById(Integer id) {
         //调用userdomapper获取到对应的用户dataobject
@@ -44,6 +50,17 @@ public class UserServiceImpl implements UserService {
         UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDO.getId());
 
         return convertFromDataObject(userDO,userPasswordDO);
+    }
+
+    @Override
+    public UserModel getUserByIdInCache(Integer id) {
+        UserModel userModel = (UserModel) redisTemplate.opsForValue().get("user_validate_"+id);
+        if(userModel == null){
+            userModel = this.getUserById(id);
+            redisTemplate.opsForValue().set("user_validate_"+id,userModel);
+            redisTemplate.expire("user_validate_"+id,10, TimeUnit.MINUTES);
+        }
+        return userModel;
     }
 
     @Override
@@ -73,8 +90,10 @@ public class UserServiceImpl implements UserService {
 
         UserPasswordDO userPasswordDO = convertPasswordFromModel(userModel);
         userPasswordDOMapper.insertSelective(userPasswordDO);
+
         return;
     }
+
     @Override
     public UserModel validateLogin(String telphone, String encrptPassword) throws BusinessException {
         //通过用户的手机获取用户信息
@@ -84,12 +103,15 @@ public class UserServiceImpl implements UserService {
         }
         UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDO.getId());
         UserModel userModel = convertFromDataObject(userDO,userPasswordDO);
+
         //比对用户信息内加密的密码是否和传输进来的密码相匹配
         if(!StringUtils.equals(encrptPassword,userModel.getEncrptPassword())){
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
         }
         return userModel;
     }
+
+
     private UserPasswordDO convertPasswordFromModel(UserModel userModel){
         if(userModel == null){
             return null;
@@ -105,6 +127,7 @@ public class UserServiceImpl implements UserService {
         }
         UserDO userDO = new UserDO();
         BeanUtils.copyProperties(userModel,userDO);
+
         return userDO;
     }
     private UserModel convertFromDataObject(UserDO userDO, UserPasswordDO userPasswordDO){
@@ -117,6 +140,7 @@ public class UserServiceImpl implements UserService {
         if(userPasswordDO != null){
             userModel.setEncrptPassword(userPasswordDO.getEncrptPassword());
         }
+
         return userModel;
     }
 }
