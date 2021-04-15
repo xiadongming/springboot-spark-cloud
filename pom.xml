@@ -15,6 +15,7 @@
         <module>distribution-center</module>
         <module>settlement-center</module>
         <module>seckill-center</module>
+        <module>seckill-center2</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
