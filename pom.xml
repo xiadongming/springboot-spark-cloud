@@ -16,6 +16,7 @@
         <module>settlement-center</module>
         <module>seckill-center</module>
         <module>seckill-center2</module>
+        <module>hystrix-ha</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
