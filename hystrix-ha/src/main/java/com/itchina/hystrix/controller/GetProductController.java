@@ -1,4 +1,4 @@
-package com.itchina.hystrix.product.controller;
+package com.itchina.hystrix.controller;
 
 import com.itchina.hystrix.model.ProductInfo;
 import com.itchina.hystrix.product.GetProductInfoService;
