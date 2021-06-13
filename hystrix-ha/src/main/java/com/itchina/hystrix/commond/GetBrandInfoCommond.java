@@ -29,6 +29,9 @@ public class GetBrandInfoCommond extends HystrixCommand<String> {
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
                         .withFallbackIsolationSemaphoreMaxConcurrentRequests(15))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                        /**
+                         * 断路器
+                         */
                         .withCircuitBreakerRequestVolumeThreshold(30) //10秒中内超过30个，则打开断路器
                         .withCircuitBreakerErrorThresholdPercentage(40) //异常的比例超过40%，则打开断路器
                         .withCircuitBreakerSleepWindowInMilliseconds(3000) //休眠3秒后，尝试自动恢复，打开半开状态
