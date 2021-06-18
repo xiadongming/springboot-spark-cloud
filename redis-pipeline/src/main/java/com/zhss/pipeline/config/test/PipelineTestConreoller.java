@@ -36,10 +36,22 @@ public class PipelineTestConreoller {
         jedis.close();
         return "successful";
     }
+    @RequestMapping(value = "/pipelineQuery")
+    public Object getTestQuery() {
+        Jedis jedis = jedisPool.getResource();
+        Pipeline pipeline = jedis.pipelined();
 
+        //造1000条数据
+        for (int i = 0; i < 1000; i++) {
+            pipeline.get("num" + i);
+        }
+        List<Object> objects = pipeline.syncAndReturnAll();
+        jedis.close();
+        return objects;
+    }
     //批量 减1
     @RequestMapping(value = "/pipelineUpdate")
-    public Object getTestUpdate() {
+    public Object getTestUpdate() throws Exception {
         Jedis jedis = jedisPool.getResource();
         Pipeline pipeline = jedis.pipelined();
         for (int i = 0; i < 1000; i++) {
@@ -49,6 +61,19 @@ public class PipelineTestConreoller {
         jedis.close();
         return "successful";
     }
+    //批量 减1  抛异常
+    @RequestMapping(value = "/pipelineUpdate3")
+    public Object getTestUpdate3() throws Exception {
+        Jedis jedis = jedisPool.getResource();
+        Pipeline pipeline = jedis.pipelined();
+        for (int i = 0; i < 1000; i++) {
+            pipeline.decrBy("num" + i, 1L);
+        }
+        pipeline.sync();
+        throw new Exception(); //reids数量已经修改，不会回滚
+    }
+
+
 
     //批量修改
     @RequestMapping(value = "/pipelineUpdate2")
