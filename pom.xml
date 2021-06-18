@@ -17,6 +17,7 @@
         <module>seckill-center</module>
         <module>seckill-center2</module>
         <module>hystrix-ha</module>
+        <module>redis-pipeline</module>
     </modules>
     <packaging>pom</packaging>
     <parent>

@@ -1,10 +1,25 @@
 package com.itchina.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 /**
+ *
  */
 public class BaseController {
-    public static final String CONTENT_TYPE_FORMED="application/x-www-form-urlencoded";
+    public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
+
+    public static void main(String[] args) {
+        Object o = new Object();
+        System.out.println(o.toString());
+        System.out.println(JSON.toJSONString(o));
+
+        System.out.println(JSON.parseObject(o.toString()));
+        System.out.println(JSON.parseObject(JSON.toJSONString(o)));
+
+
+    }
 
 
 //    //定义exceptionhandler解决未被controller层吸收的exception
