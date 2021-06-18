@@ -18,6 +18,8 @@
         <module>seckill-center2</module>
         <module>hystrix-ha</module>
         <module>redis-pipeline</module>
+        <module>guava-center</module>
+        <module>spring-abstract</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
