@@ -22,6 +22,7 @@
         <module>spring-abstract</module>
         <module>java-regex</module>
         <module>redis-lua</module>
+        <module>redis-redisson</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
