@@ -94,4 +94,11 @@ public class CacheController {
         });
         return "successful";
     }
+
+    /**
+     * 请求折叠
+     */
+
+
+
 }

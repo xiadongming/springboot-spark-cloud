@@ -20,6 +20,8 @@
         <module>redis-pipeline</module>
         <module>guava-center</module>
         <module>spring-abstract</module>
+        <module>java-regex</module>
+        <module>redis-lua</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
