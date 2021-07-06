@@ -20,9 +20,12 @@
         <module>redis-pipeline</module>
         <module>guava-center</module>
         <module>spring-abstract</module>
-        <module>java-regex</module>
-        <module>redis-lua</module>
-        <module>redis-redisson</module>
+        <module>caceh-guava</module>
+        <module>cache-caffeine</module>
+        <module>byte-alg</module>
+        <module>jdk-map</module>
+        <module>prodapplication-center</module>
+        <module>Test</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
@@ -35,12 +38,12 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
     </properties>-->
     <dependencies>
-        <dependency>
+   <!--     <dependency>
             <groupId>org.example</groupId>
             <artifactId>common-center</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
+-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
