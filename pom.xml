@@ -26,6 +26,16 @@
         <module>jdk-map</module>
         <module>prodapplication-center</module>
         <module>Test</module>
+        <module>spring-threadlocal</module>
+        <module>seata-a-order</module>
+        <module>seata-b-stock</module>
+        <module>seata-b-account</module>
+        <module>seata-c-storage</module>
+        <module>seata-d-business</module>
+        <module>springboot-canal</module>
+        <module>picture-download</module>
+        <module>portal-api</module>
+        <module>api-portal</module>
     </modules>
     <packaging>pom</packaging>
     <parent>

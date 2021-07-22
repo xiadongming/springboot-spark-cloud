@@ -11,8 +11,14 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/target/classes" />
-    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <output url="file://$MODULE_DIR$/../../../11responsity/repository2/org/springframework/boot/spring-boot-starter-parent/2.1.4.RELEASE/target/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../11responsity/repository2/org/springframework/boot/spring-boot-starter-parent/2.1.4.RELEASE/target/test-classes" />
+    <content url="file://$MODULE_DIR$/../seata-a-order-seckill/src/main/java">
+      <sourceFolder url="file://$MODULE_DIR$/../seata-a-order-seckill/src/main/java" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../seata-a-order-seckill/src/main/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../seata-a-order-seckill/src/main/resources" type="java-resource" />
+    </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
@@ -129,7 +135,5 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.6.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
   </component>
 </module>
