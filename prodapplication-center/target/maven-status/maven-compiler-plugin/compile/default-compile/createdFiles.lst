@@ -1,0 +1,5 @@
+com\zhss\PipelineApplication.class
+com\zhss\entity\UserInfo.class
+com\zhss\service\impl\SnaServiceImpl.class
+com\zhss\service\SnaService.class
+com\zhss\controller\SnaController.class

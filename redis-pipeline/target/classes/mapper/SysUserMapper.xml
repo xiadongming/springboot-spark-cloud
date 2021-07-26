@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhss.pipeline.mapper.SysUserMapper">
+    <resultMap id="resultMap" type="com.zhss.pipeline.entity.SysUser">
+        <result column="user_id" property="userId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="cell_phone" property="cellPhone"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+        <result column="role_name" property="roleName"/>
+    </resultMap>
+
+    <select id="findAllByUserIdAndStatus" resultType="com.zhss.pipeline.entity.SysUser">
+      select * from sys_user
+    </select>
+
+    <select id="updateUser" parameterType="com.zhss.pipeline.entity.SysUser">
+      update sys_user set login_name = #{loginName} where user_id = #{userId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,5 @@
+com\zhss\api\ApiApplication.class
+com\zhss\api\controller\ApiRestController.class
+com\zhss\api\aware\ApplicationServiceAware.class
+com\zhss\api\entry\InvokeInfo.class
+com\zhss\api\registry\RegistryContent.class

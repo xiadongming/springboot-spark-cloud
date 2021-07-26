@@ -1,0 +1,10 @@
+[
+  {
+    "service": "order/query/elasticSerach",
+    "service_name": "com.zhss.api.service.api.OrderSerachService",
+    "service_version": "AUTHORITY_VERSION",
+    "group_name": "AUTHORITY_GROUP",
+    "method_name": "elasticSearchOrders",
+    "client_timeout": "30000"
+  }
+]
