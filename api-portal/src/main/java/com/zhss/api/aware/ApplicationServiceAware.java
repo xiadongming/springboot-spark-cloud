@@ -26,8 +26,9 @@ public class ApplicationServiceAware implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        logger.info("本地服务开始加载");
         try {
-            String jsonString = transFerJsonStringFromFile();
+            String jsonString = FileLoadUtils.transFerJsonStringFromFile("auth.json");
             List<InvokeInfo> invokeInfos = doCreateInvokeInfos(jsonString);
             for (InvokeInfo invokeInfo : invokeInfos) {
                 //从spring容器中获取bena数据
@@ -47,7 +48,7 @@ public class ApplicationServiceAware implements ApplicationContextAware {
         return invokeInfos;
     }
 
-    private String transFerJsonStringFromFile() throws IOException {
+    /*private String transFerJsonStringFromFile() throws IOException {
         InputStream is = this.getClass().getResourceAsStream("/auth.json");
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
@@ -59,7 +60,7 @@ public class ApplicationServiceAware implements ApplicationContextAware {
         br.close();
         isr.close();
         return String.valueOf(stringBuilder);
-    }
+    }*/
 
     /**
      * {

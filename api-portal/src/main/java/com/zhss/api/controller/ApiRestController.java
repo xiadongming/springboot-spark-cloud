@@ -5,6 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhss.api.entry.OrderInfoPO;
 import com.zhss.api.entry.application.InvokeInfo;
 import com.zhss.api.registry.RegistryContent;
+import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.ReferenceConfig;
+import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.rpc.service.GenericService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +55,7 @@ public class ApiRestController {
             JSONObject paramsMap = getParamsJSON(request);
             logger.info("页面入参paramsMap= {}", paramsMap);
             restlt = ApiInvoke(paramsMap, request.getRequestURI());
-            logger.info("反射调用结果restlt= {}",restlt);
+            logger.info("反射调用结果restlt= {}", restlt);
         } catch (Exception e) {
             logger.error("反射调用失败：", e);
         }
@@ -194,4 +198,57 @@ public class ApiRestController {
         System.out.println("url3= " + request.getRequestURL());
         return null;
     }
+
+    @RequestMapping(value = "/rpc")
+    public Object rpcController(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        ApplicationConfig application = new ApplicationConfig();
+        application.setName("api-generic-consumer-zjt");
+        RegistryConfig registry = new RegistryConfig();
+
+        registry.setAddress("zookeeper://127.0.0.1:2181");
+        application.setRegistry(registry);
+        ReferenceConfig<GenericService> reference = new ReferenceConfig<GenericService>();
+        // 弱类型接口名
+        String interfaceName = "com.zhss.api.service.api.OrderSerachService";
+        reference.setInterface(interfaceName);
+        // 声明为泛化接口
+        reference.setGeneric(true);
+        reference.setApplication(application);
+        GenericService genericService = reference.get();
+
+
+        //全部方法
+        Method[] methods = Class.forName(interfaceName).getMethods();
+        Method targetMethos = null;
+        for (Method method : methods) {
+            if (method.getName().equals("elasticSearchOrders")) {
+                targetMethos = method;
+            }
+        }
+        Class<?>[] parameterTypes = targetMethos.getParameterTypes();
+        Class<?> parameterType = parameterTypes[0];  // OrderInfoPO
+        Object newInstanceOrderInfoPO = parameterType.newInstance(); // orderInfoPO
+        //给入参赋值
+        JSONObject paramsMap = getParamsJSON(request);
+        doGetParamsAttributes(paramsMap, newInstanceOrderInfoPO);
+
+        //Object[] objects = new Object[]{newInstanceOrderInfoPO};
+
+        String target = newInstanceOrderInfoPO.toString();
+        String[] strings = {target};
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        //param.put("class", target);
+        param.put("orderId","101");
+        param.put("orderName","北京没团");
+
+        Object[] objects = {param};
+
+        Object elasticSearchOrders = genericService.$invoke("elasticSearchOrders", strings, objects);
+
+        System.out.println("响应结果elasticSearchOrders:= " + elasticSearchOrders);
+
+        return "sssss";
+    }
+
 }

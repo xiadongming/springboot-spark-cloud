@@ -36,6 +36,8 @@
         <module>picture-download</module>
         <module>portal-api</module>
         <module>api-portal</module>
+        <module>api-test-order</module>
+        <module>api-test-order-api</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
