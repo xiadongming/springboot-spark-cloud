@@ -199,6 +199,9 @@ public class ApiRestController {
         return null;
     }
 
+    /**
+     * 直接通过dubbo，泛化调用
+     */
     @RequestMapping(value = "/rpc")
     public Object rpcController(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         ApplicationConfig application = new ApplicationConfig();
@@ -239,8 +242,8 @@ public class ApiRestController {
 
         Map<String, Object> param = new HashMap<String, Object>();
         //param.put("class", target);
-        param.put("orderId","101");
-        param.put("orderName","北京没团");
+        param.put("orderId", "101");
+        param.put("orderName", "北京没团");
 
         Object[] objects = {param};
 
