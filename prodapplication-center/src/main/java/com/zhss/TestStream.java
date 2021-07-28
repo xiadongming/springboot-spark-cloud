@@ -14,7 +14,7 @@ public class TestStream {
 
         ArrayList<UserInfo> stringList = new ArrayList<UserInfo>();
 
-        for (int i = 0; i < 55019; i++) {
+        for (int i = 0; i < 390; i++) {
             UserInfo UserInfo = new UserInfo();
             stringList.add(UserInfo);
         }
@@ -26,6 +26,16 @@ public class TestStream {
         long time2 = System.currentTimeMillis();
         System.out.println("增强for = " + (time2 - time1));
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+
+        long time12 = System.currentTimeMillis();
+        stringList.forEach(ele ->{
+
+        });
+        long time123 = System.currentTimeMillis();
+        System.out.println("forEach = " + (time123 - time12));
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
 
         long time3 = System.currentTimeMillis();
         stringList.stream().forEach(de -> {//有序的
