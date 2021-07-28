@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @MapperScan("com.itchina.mapper")
 @SpringBootApplication
-public class SeckillApplicaztion {
+public class Seckill3Applicaztion {
     public static void main(String[] args) {
         SpringApplication.run(SeckillApplicaztion.class,args);
     }

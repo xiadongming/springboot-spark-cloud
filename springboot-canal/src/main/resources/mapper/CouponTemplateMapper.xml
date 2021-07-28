@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itchina.template.mapper.CouponTemplateMapper">
+    <resultMap id="resultMap" type="com.itchina.template.entity.CouponTemplate">
+        <result column="id" property="id"/>
+        <result column="available" property="available"/>
+        <result column="expired" property="expired"/>
+        <result column="name" property="name"/>
+        <result column="logo" property="logo"/>
+       <!-- <result column="order_id" property="desc"/>-->
+        <result column="category" property="categoryCode"/>
+        <result column="product_line" property="productLineCode"/>
+        <result column="coupon_count" property="couponCount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="user_id" property="userId"/>
+        <result column="template_key" property="templateKey"/>
+        <result column="target" property="targetCode"/>
+        <result column="rule" property="ruleCode"  />
+    </resultMap>
+
+    <select id="selectAll" resultType="com.itchina.template.entity.CouponTemplate">
+      select * from coupon_template
+    </select>
+    <select id="selectTemplateById" resultMap="resultMap" >
+      select * from coupon_template where id = #{id}
+    </select>
+
+
+    <select id="findByName" resultMap="resultMap" >
+      select * from coupon_template where name = #{name}
+    </select>
+    <select id="selectOfflineTemplate" resultType="com.itchina.template.entity.CouponTemplate">
+      select * from coupon_template where expired = 0
+    </select>
+    <update id="updateTemplate" parameterType="com.itchina.template.entity.CouponTemplate">
+     update coupon_template set expired = 1 where id = #{id}
+    </update>
+    <insert id="saveTemplate" parameterType="com.itchina.template.entity.CouponTemplate">
+      insert into coupon_template (`id`, `available`, `expired`, `name`, `logo`, `intro`, `category`, `product_line`, `coupon_count`, `create_time`, `user_id`, `template_key`, `target`, `rule`)
+      values (#{id},#{available},#{expired},#{name},#{logo},#{desc},#{category},#{productLine},#{count},#{createTime},#{userId},#{key},#{target},#{rule})
+    </insert>
+
+</mapper>

@@ -38,6 +38,10 @@
         <module>api-portal</module>
         <module>api-test-order</module>
         <module>api-test-order-api</module>
+        <module>springboot-seata-order</module>
+        <module>springboot-seata-stock</module>
+        <module>springboot-seata-test</module>
+        <module>jdk-nio</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
