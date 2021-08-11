@@ -44,6 +44,8 @@
         <module>jdk-nio</module>
         <module>jdk-userinfobasebo</module>
         <module>springboot-hbase</module>
+        <module>jdk-snowflake</module>
+        <module>jdk-future</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
