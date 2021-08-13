@@ -46,6 +46,8 @@
         <module>springboot-hbase</module>
         <module>jdk-snowflake</module>
         <module>jdk-future</module>
+        <module>jdk-rocketmq</module>
+        <module>jdk-callback</module>
     </modules>
     <packaging>pom</packaging>
     <parent>

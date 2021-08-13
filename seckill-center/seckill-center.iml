@@ -11,8 +11,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../../../11responsity/repository2/org/springframework/boot/spring-boot-starter-parent/2.1.4.RELEASE/target/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../11responsity/repository2/org/springframework/boot/spring-boot-starter-parent/2.1.4.RELEASE/target/test-classes" />
+    <output url="file://$MODULE_DIR$/../seata-a-order-seckill/target/classes" />
+    <output-test url="file://$MODULE_DIR$/../seata-a-order-seckill/target/test-classes" />
     <content url="file://$MODULE_DIR$/../seata-a-order-seckill/src/main/java">
       <sourceFolder url="file://$MODULE_DIR$/../seata-a-order-seckill/src/main/java" isTestSource="false" />
     </content>
