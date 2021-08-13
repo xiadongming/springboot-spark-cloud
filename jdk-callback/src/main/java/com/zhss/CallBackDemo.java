@@ -8,6 +8,11 @@ public class CallBackDemo {
 
     public static void main(String[] args) {
 
+        /**
+         * 回调函数，1-先定义一个接口，
+         *         2-方法中的参数是该接口
+         *
+         */
         sayHello(new Event() {
             @Override
             public String callBackResponse() {
